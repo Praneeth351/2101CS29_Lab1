@@ -19,6 +19,7 @@ void sort_by_insertion_and_print(int arr[], int n){
         printf("\n");
     }
 }
+
 void swap(int *a, int *b){
     int temp = *a;
     *a = *b;
@@ -137,67 +138,111 @@ void mergesort_and_print(int arr[], int n)
     printf("\n");
 }
 
+int partition(int array[], int low, int high)
+{
 
-int main(){
-  int n;
-  printf("Enter array size:");
-  scanf("%d", &n);
-  printf("Enter the array: \n");
-  int arr[n];
+    int pivot = array[high];
 
-  for (int i = 0; i < n; i++)
-      scanf("%d", &arr[i]);
+    int i = (low - 1);
 
-  printf("Choose the sorting technique to use:\n");
-  printf("1 -> Insertion sort\n");
-  printf("2 -> Selection sort\n");
-  printf("3 -> Bubble sort\n");
-  printf("4 -> Merge Sort\n");
-  printf("5 -> Quick Sort\n");
-  printf("Enter your option:");
+    for (int j = low; j < high; j++)
+    {
+        if (array[j] <= pivot)
+        {
 
-  int status;
-  scanf("%d", &status);
+            i++;
 
-  switch (status)
-  {
+            swap(&array[i], &array[j]);
+        }
+    }
 
-  case 1:
-  {
-      sort_by_insertion_and_print(arr, n);
-  }
-  break;
+    swap(&array[i + 1], &array[high]);
+    return (i + 1);
+}
 
-  case 2:
-  {
-      sort_by_selection_and_print(arr, n);
-  }
-  break;
+void quickSort(int array[], int low, int high)
+{
+    if (low < high)
+    {
 
-  case 3:
-  {
-      bubbleSort_and_print(arr, n);
-  }
-  break;
+        int pi = partition(array, low, high);
+        quickSort(array, low, pi - 1);
+        quickSort(array, pi + 1, high);
+    }
+}
 
-  case 4:
-  {
-      mergesort_and_print(arr, n);
-  }
-  break;
+void quicksort_and_print(int arr[], int n)
+{
+    quickSort(arr, 0, n);
 
-  case 5:
-  {
-      quicksort_and_print(arr, n);
-  }
-  break;
+    for (int i = 0; i < n; ++i)
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
 
-  default:
-  {
-      printf("Enter a valid option from the menu!");
-  }
-  break;
-  }
 
-  return 0;
+int main()
+{
+    int n;
+    printf("Enter array size:");
+    scanf("%d", &n);
+    printf("Enter the array: \n");
+    int arr[n];
+
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    printf("Choose the sorting technique to use:\n");
+    printf("1 -> Insertion sort\n");
+    printf("2 -> Selection sort\n");
+    printf("3 -> Bubble sort\n");
+    printf("4 -> Merge Sort\n");
+    printf("5 -> Quick Sort\n");
+    printf("Enter your option:");
+
+    int status;
+    scanf("%d", &status);
+
+    switch (status)
+    {
+
+    case 1:
+    {
+        sort_by_insertion_and_print(arr, n);
+    }
+    break;
+
+    case 2:
+    {
+        sort_by_selection_and_print(arr, n);
+    }
+    break;
+
+    case 3:
+    {
+        bubbleSort_and_print(arr, n);
+    }
+    break;
+
+    case 4:
+    {
+        mergesort_and_print(arr, n);
+    }
+    break;
+
+    case 5:
+    {
+        quicksort_and_print(arr, n);
+    }
+    break;
+
+    default:
+    {
+        printf("Enter a valid option from the menu!");
+    }
+    break;
+    }
+    return 0;
 }
